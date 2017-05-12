@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+	<Properties>
+		<Property name="log-path">SponsoLogs</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console-Appender" target="SYSTEM_OUT">
+			<PatternLayout>
+				<pattern>
+					[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+				
+			</PatternLayout>
+		</Console>
+		<RollingFile name="FILE" fileName="${log-path}/common_log.log"
+			filePattern="${log-path}/common_log-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} - %msg%n
+				</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<SizeBasedTriggeringPolicy size="5 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.ruhul.sponso.server" level="info" additivity="false">
+			<AppenderRef ref="FILE" />
+			<!-- <AppenderRef ref="Console-Appender"/> -->
+		</Logger>
+		<Root>
+			<AppenderRef ref="Console-Appender" />
+		</Root>
+	</Loggers>
+</Configuration>
